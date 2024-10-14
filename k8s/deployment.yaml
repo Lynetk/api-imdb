@@ -1,0 +1,14 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: api-imdb
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        editor: vscode
+    spec:
+      containers:
+      - name: api-imdb
+        image: 970547334392.dkr.ecr.eu-north-1.amazonaws.com/idp/api-imdb:<replace_tag>
