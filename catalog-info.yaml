@@ -1,0 +1,24 @@
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: api-imdb
+  description: API to provide IMDB movie info
+  annotations:
+    argocd/app-name: api-imdb
+    # grafana/overview-dashboard: "https://grafana.jppol.click/goto/Hw7n7PzHR?orgId=1"
+    # grafana/dashboard-selector: nginx
+    backstage.io/kubernetes-namespace: api-imdb
+    backstage.io/kubernetes-label-selector: 'app.kubernetes.io/name=api-imdb'
+    #prometheus.io/rule: sum by (ingress) (nginx_ingress_controller_requests{ingress!=""}), nginx_ingress_controller_nginx_process_resident_memory_bytes
+    kubecost.com/deployment-name: api-imdb
+  links:
+    - url: https://argocd.jppol.click
+      title: ArgoCD
+      icon: dashboard
+    - url: https://grafana.jppol.click/goto/JCdVqlzHg?orgId=1
+      title: Grafana loki Access log explorer
+      icon: grafana
+spec:
+  type: api
+  owner: idp-admins
+  lifecycle: production
