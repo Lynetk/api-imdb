@@ -47,7 +47,5 @@ jobs:
         push: true
         tags: 970547334392.dkr.ecr.eu-north-1.amazonaws.com/idp/api-imdb:latest
 
-
-
 env:
-  REPOSITORY_NAME: api-imdb
+  REPOSITORY_NAME: idp/api-imdb
