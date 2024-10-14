@@ -42,5 +42,5 @@ jobs:
 
     - name: Replace tag in deployment.yaml
       run: |
-        sed -i k8s/deployment.yaml "s|<replace_tag>|$IMAGE_TAG|g"
+        sed -i "s|<replace_tag>|$IMAGE_TAG|g" k8s/deployment.yaml
         cat k8s/deployment.yaml
