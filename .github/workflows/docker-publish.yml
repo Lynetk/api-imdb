@@ -40,9 +40,21 @@ jobs:
         docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG .
         docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
 
-    - name: Replace tag in deployment.yaml
+    # - name: Replace tag in deployment.yaml
+    #   env:
+    #     IMAGE_TAG: ${{ github.sha }}
+    #   run: |
+    #     sed -i "s|<replace_tag>|${IMAGE_TAG}|g" k8s/deployment.yaml
+    #     cat k8s/deployment.yaml
+
+    - name: Update values.yaml
       env:
         IMAGE_TAG: ${{ github.sha }}
       run: |
+        cd helm
         sed -i "s|<replace_tag>|${IMAGE_TAG}|g" k8s/deployment.yaml
-        cat k8s/deployment.yaml
+        git config --global user.name 'GitHub Actions'
+        git config --global user.email 'actions@github.com'
+        git add values.yaml
+        git commit -m "Update values.yaml"
+        git push
