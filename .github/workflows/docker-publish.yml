@@ -18,7 +18,7 @@ jobs:
       uses: aws-actions/configure-aws-credentials@v1
       with:
         role-to-assume: arn:aws:iam::970547334392:role/github_actions
-        aws-region: ${AWS_REGION}
+        aws-region: eu-north-1
         #role-external-id: external-id-value  # Optional, only if the role requires an external ID
 
     - name: Set ECR Registry URI
