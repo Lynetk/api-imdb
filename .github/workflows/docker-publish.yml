@@ -52,7 +52,7 @@ jobs:
         IMAGE_TAG: ${{ github.sha }}
       run: |
         cd helm
-        sed -i "s|<replace_tag>|${IMAGE_TAG}|g" k8s/deployment.yaml
+        sed -i "s|<replace_tag>|${IMAGE_TAG}|g" values.yaml
         git config --global user.name 'GitHub Actions'
         git config --global user.email 'actions@github.com'
         git add values.yaml
