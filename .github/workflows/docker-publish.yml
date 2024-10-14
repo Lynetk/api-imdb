@@ -52,11 +52,11 @@ jobs:
         IMAGE_TAG: ${{ github.sha }}
       run: |
         cd helm
-        git checkout -b deploy
-        git pull
+        git fetch origin
+        git checkout -b deploy origin/deploy
         sed -i "s|tag: .*|tag: ${IMAGE_TAG}|g" values.yaml
         git config --global user.name 'GitHub Actions'
         git config --global user.email 'actions@github.com'
         git add values.yaml
         git commit -m "Update values.yaml"
-        git push --set-upstream origin deploy
+        git push
