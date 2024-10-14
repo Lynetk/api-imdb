@@ -39,6 +39,5 @@ jobs:
       run: |
         docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG .
         docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
-
-#env:
-  #REPOSITORY_NAME: idp/api-imdb
+        helm package $REPOSITORY
+        helm push $REPOSITORY-0.1.0.tgz oci://$REGISTRY
