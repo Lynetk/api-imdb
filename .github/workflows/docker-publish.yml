@@ -27,9 +27,14 @@ jobs:
         aws-secret-access-key: ${{ env.AWS_SECRET_ACCESS_KEY }}
         #role-external-id: external-id-value  # Optional, only if the role requires an external ID
 
-    - name: Set ECR Registry URI
-      run: echo "ECR_REGISTRY_URI=$(aws ecr get-login-password --region $AWS_REGION)" >> $GITHUB_ENV
-      
+    # - name: Set ECR Registry URI
+    #   run: echo "ECR_REGISTRY_URI=$(aws ecr get-login-password --region $AWS_REGION)" >> $GITHUB_ENV
+
+    - name: Login to ECR
+      id: login-ecr
+      uses: aws-actions/amazon-ecr-login@v1
+
+
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v3
 
@@ -39,17 +44,10 @@ jobs:
     - name: Build and push
       uses: docker/build-push-action@v6
       with:
-        push: false
-        tags: api-imdb:latest
+        push: true
+        tags: 970547334392.dkr.ecr.eu-north-1.amazonaws.com/idp/api-imdb:latest
 
-    - name: Login to ECR
-      id: login-ecr
-      uses: aws-actions/amazon-ecr-login@v1
-      with:
-        registry-url: ${{ env.ECR_REGISTRY_URI }}
-      
-    - name: Push the Docker image
-      run: docker push ${{ env.ECR_REGISTRY_URI }}/$REPOSITORY_NAME:$GITHUB_SHA
+
 
 env:
   REPOSITORY_NAME: api-imdb
