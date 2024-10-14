@@ -27,3 +27,7 @@ async def get_movie(title):
             return movie
     return {"error": "Movie not found"}
 
+# Health check'
+@app.get("/health")
+async def healtcheck():
+    return {"message": "ok"}
