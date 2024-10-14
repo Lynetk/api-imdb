@@ -1,8 +1,12 @@
 from movies import top_movies
 from fastapi import FastAPI
 from pydantic import BaseModel
+from prometheus_fastapi_instrumentator import Instrumentator
 
 app = FastAPI()
+
+# Prometheus
+Instrumentator().instrument(app).expose(app)
 
 # List of movies
 movies = top_movies
