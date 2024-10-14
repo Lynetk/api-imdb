@@ -39,5 +39,8 @@ jobs:
       run: |
         docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG .
         docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
-        helm package $REPOSITORY
-        helm push $REPOSITORY-0.1.0.tgz oci://$REGISTRY
+
+    - name: Replace tag in deployment.yaml
+      run: |
+        sed .k8s/deployment.yaml "s|<replace_tag>|$IMAGE_TAG|g"
+        cat .k8s/deployment.yaml
