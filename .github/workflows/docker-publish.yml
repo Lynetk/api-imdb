@@ -13,22 +13,27 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
       
-    - name: Set up AWS credentials
+    - name: Assume AWS IAM Role
+      id: assume-role
       uses: aws-actions/configure-aws-credentials@v1
       with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: ${{ secrets.AWS_REGION }}
+        role-to-assume: arn:aws:iam::970547334392:role/github_actions
+        #role-external-id: external-id-value  # Optional, only if the role requires an external ID
+
+    - name: Set ECR Registry URI
+      run: echo "ECR_REGISTRY_URI=$(aws ecr get-login-password --region $AWS_REGION)" >> $GITHUB_ENV
       
     - name: Build the Docker image
-      run: docker build . -t $(aws ecr describe-repositories --repository-names $REPOSITORY_NAME --query 'repositories[0].repositoryUri' --output text):$GITHUB_SHA
+      run: docker build . -t ${{ env.ECR_REGISTRY_URI }}/$REPOSITORY_NAME:$GITHUB_SHA
       
     - name: Login to ECR
       id: login-ecr
       uses: aws-actions/amazon-ecr-login@v1
+      with:
+        registry-url: ${{ env.ECR_REGISTRY_URI }}
       
     - name: Push the Docker image
-      run: docker push $(aws ecr describe-repositories --repository-names $REPOSITORY_NAME --query 'repositories[0].repositoryUri' --output text):$GITHUB_SHA
+      run: docker push ${{ env.ECR_REGISTRY_URI }}/$REPOSITORY_NAME:$GITHUB_SHA
 
 env:
   REPOSITORY_NAME: api-imdb
