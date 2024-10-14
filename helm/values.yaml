@@ -20,20 +20,20 @@ service:
 
 # This block is for setting up the ingress for more information can be found here: https://kubernetes.io/docs/concepts/services-networking/ingress/
 ingress:
-  enabled: false
-  className: ""
-  annotations: {}
-    # kubernetes.io/ingress.class: nginx
-    # kubernetes.io/tls-acme: "true"
+  enabled: true
+  className: "nginx-public"
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+    
   hosts:
-    - host: chart-example.local
+    - host: api-imdb.jppol.click
       paths:
         - path: /
           pathType: ImplementationSpecific
-  tls: []
-  #  - secretName: chart-example-tls
-  #    hosts:
-  #      - chart-example.local
+  tls:
+    - secretName: api-imdb-jppol-click
+      hosts:
+        - api-imdb.jppol.click
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
