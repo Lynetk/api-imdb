@@ -12,13 +12,15 @@ metadata:
     #prometheus.io/rule: sum by (ingress) (nginx_ingress_controller_requests{ingress!=""}), nginx_ingress_controller_nginx_process_resident_memory_bytes
     kubecost.com/deployment-name: api-imdb
   links:
-    - url: https://argocd.jppol.click
-      title: ArgoCD
-      icon: dashboard
+    - url: https://api-imdb.jppol.click/docs
+      title: Documentation
+      icon: documentation
     - url: https://grafana.jppol.click/goto/JCdVqlzHg?orgId=1
       title: Grafana loki Access log explorer
       icon: grafana
 spec:
-  type: api
+  type: openapi
   owner: idp-admins
-  lifecycle: production
+  lifecycle: experimental
+  definition:
+    $text: https://api-imdb.jppol.click/openapi.json
