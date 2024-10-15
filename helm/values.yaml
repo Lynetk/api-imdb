@@ -2,7 +2,7 @@ replicaCount: 1
 
 image:
   repository: 970547334392.dkr.ecr.eu-north-1.amazonaws.com/idp/api-imdb
-  tag: 4b25c65cc36ce4157b6e98c61f2d2c87ed7ab367
+  tag: ad4672265269f193b914697326fe448a3d756cda
 
 # This is for setting Kubernetes Annotations to a Pod.
 # For more information checkout: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/
