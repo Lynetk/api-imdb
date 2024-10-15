@@ -1,5 +1,5 @@
 name: Docker Publish
-
+permissions: write-all
 on:
   push:
     branches:
